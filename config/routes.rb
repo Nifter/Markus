@@ -242,14 +242,14 @@ Markus::Application.routes.draw do
       post 'populate'
       get 'manage'
       get 'download_student_list'
-      get 'upload_student_list'
+      post 'upload_student_list'
     end
   end
 
   resources :tas  do
     collection do
       post 'populate'
-      get 'upload_ta_list'
+      post 'upload_ta_list'
       get 'download_ta_list'
     end
   end
