@@ -1,3 +1,4 @@
+require 'iconv'
 require 'fastercsv'
 require 'digest' # required for {set,reset}_api_token
 require 'base64' # required for {set,reset}_api_token
@@ -137,14 +138,20 @@ class User < ActiveRecord::Base
      return file_out
   end
 
-  def self.upload_user_list(user_class, user_list)
+  def self.upload_user_list(user_class, user_list, unicode)
     num_update = 0
     result = {}
     result[:invalid_lines] = []  # store lines that were not processed
     # read each line of the file and update classlist
+    if unicode != nil # if user says file is not unicode, convert to unicode
+      user_list_new = user_list.read
+    else
+      user_list_new = Iconv.iconv('UTF-8', 'ISO-8859-1', user_list.read).join
+    end
     User.transaction do
       processed_users = []
-      FasterCSV.new(user_list.read, :skip_blanks => true, :row_sep => :auto).each do |row|
+      #FasterCSV.new(user_list.read, :skip_blanks => true, :row_sep => :auto).each do |row|
+      FasterCSV.new(user_list_new, :skip_blanks => true, :row_sep => :auto).each do |row|
         # don't know how to fetch line so we concat given array
         next if FasterCSV.generate_line(row).strip.empty?
         if processed_users.include?(row[0])

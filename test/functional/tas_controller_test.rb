@@ -71,6 +71,50 @@ class TasControllerTest < AuthenticatedControllerTest
         assert_response :success
       end
 
+      should "have valid values in database after an upload of a ISO-8859-1 encoded file parsed as ISO-8859-1" do
+        post_as @admin,
+                :upload_ta_list,
+                :userlist => fixture_file_upload('../classlist-csvs/test-students-iso-8859-1.csv'), 
+                :unicode => nil
+        assert_response :redirect
+        assert_redirected_to(:controller => "tas", :action => 'index')
+        test_student = Ta.find_by_user_name('c2ÈrÉØrr')
+        assert_not_nil test_student # student should exist
+      end
+  
+      should "have invalid values in database after an upload of an ISO-8859-1 encoded file parsed as unicode" do
+        post_as @admin,
+                :upload_ta_list,
+                :userlist => fixture_file_upload('../classlist-csvs/test-students-iso-8859-1.csv'), 
+                :unicode => '1'
+        assert_response :redirect
+        assert_redirected_to(:controller => "tas", :action => 'index')
+        test_student = Ta.find_by_user_name('c2ÈrÉØrr')
+        assert_nil test_student # student should not be found, despite existing in the CSV file
+      end
+  
+      should "have valid values in database after an upload of a unicode encoded file parsed as unicode" do
+        post_as @admin,
+                :upload_ta_list,
+                :userlist => fixture_file_upload('../classlist-csvs/test-students-utf8.csv'), 
+                :unicode => '1'
+        assert_response :redirect
+        assert_redirected_to(:controller => "tas", :action => 'index')
+        test_student = Ta.find_by_user_name('c2ÈrÉØrr')
+        assert_not_nil test_student # student should exist
+      end
+  
+      should "have invalid values in database after an upload of a unicode encoded file parsed as ISO-8859-1" do
+        post_as @admin,
+                :upload_ta_list,
+                :userlist => fixture_file_upload('../classlist-csvs/test-students-utf8.csv'), 
+                :unicode => nil
+        assert_response :redirect
+        assert_redirected_to(:controller => "tas", :action => 'index')
+        test_student = Ta.find_by_user_name('c2ÈrÉØrr')
+        assert_nil test_student # student should not be found, despite existing in the CSV file
+      end
+
     end # -- With a TA
   end # -- An admin
 
