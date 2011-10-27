@@ -150,7 +150,6 @@ class User < ActiveRecord::Base
     end
     User.transaction do
       processed_users = []
-      #FasterCSV.new(user_list.read, :skip_blanks => true, :row_sep => :auto).each do |row|
       FasterCSV.new(user_list_new, :skip_blanks => true, :row_sep => :auto).each do |row|
         # don't know how to fetch line so we concat given array
         next if FasterCSV.generate_line(row).strip.empty?
