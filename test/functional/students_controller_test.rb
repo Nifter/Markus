@@ -141,11 +141,7 @@ class StudentsControllerTest < AuthenticatedControllerTest
       should "have valid values in database after an upload of a ISO-8859-1 encoded file parsed as ISO-8859-1" do
         post_as @admin,
                 :upload_student_list,
-<<<<<<< HEAD
                 :userlist => fixture_file_upload('../classlist-csvs/test-students-iso-8859-1.csv'),
-=======
-                :userlist => fixture_file_upload('../classlist-csvs/test-students-iso-8859-1.csv'), 
->>>>>>> 962996e7cc85491081d29f06680275cdf26a198b
                 :unicode => nil
         assert_response :redirect
         assert_redirected_to(:controller => "students", :action => 'index')
@@ -156,11 +152,7 @@ class StudentsControllerTest < AuthenticatedControllerTest
       should "have invalid values in database after an upload of an ISO-8859-1 encoded file parsed as unicode" do
         post_as @admin,
                 :upload_student_list,
-<<<<<<< HEAD
                 :userlist => fixture_file_upload('../classlist-csvs/test-students-iso-8859-1.csv'),
-=======
-                :userlist => fixture_file_upload('../classlist-csvs/test-students-iso-8859-1.csv'), 
->>>>>>> 962996e7cc85491081d29f06680275cdf26a198b
                 :unicode => '1'
         assert_response :redirect
         assert_redirected_to(:controller => "students", :action => 'index')
@@ -171,11 +163,7 @@ class StudentsControllerTest < AuthenticatedControllerTest
       should "have valid values in database after an upload of a unicode encoded file parsed as unicode" do
         post_as @admin,
                 :upload_student_list,
-<<<<<<< HEAD
                 :userlist => fixture_file_upload('../classlist-csvs/test-students-utf8.csv'),
-=======
-                :userlist => fixture_file_upload('../classlist-csvs/test-students-utf8.csv'), 
->>>>>>> 962996e7cc85491081d29f06680275cdf26a198b
                 :unicode => '1'
         assert_response :redirect
         assert_redirected_to(:controller => "students", :action => 'index')
@@ -186,11 +174,7 @@ class StudentsControllerTest < AuthenticatedControllerTest
       should "have invalid values in database after an upload of a unicode encoded file parsed as ISO-8859-1" do
         post_as @admin,
                 :upload_student_list,
-<<<<<<< HEAD
                 :userlist => fixture_file_upload('../classlist-csvs/test-students-utf8.csv'),
-=======
-                :userlist => fixture_file_upload('../classlist-csvs/test-students-utf8.csv'), 
->>>>>>> 962996e7cc85491081d29f06680275cdf26a198b
                 :unicode => nil
         assert_response :redirect
         assert_redirected_to(:controller => "students", :action => 'index')
@@ -200,4 +184,3 @@ class StudentsControllerTest < AuthenticatedControllerTest
     end  # -- with a student
   end  # -- An admin
 end
-
