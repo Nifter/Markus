@@ -542,6 +542,7 @@ en:
         select_csv_file:     "Select a CSV file of the following form: <code>user_name,last_name,first_name(,section)</code>"
         student_same_number: "If a student with the same student number exists, then the student's information is updated."
         csv_file:            "CSV File"
+        csv_encoding:        "File is in Unicode encoding"
       download:
         download_student_list: "Download Student List"
         download_csv_format:   "Download Student list in CSV format"

@@ -548,6 +548,7 @@ fr:
         select_csv_file:     "Sélectionner un fichier CSV formaté comme suit : <code>user_name,last_name,first_name(,section)</code>"
         student_same_number: "Si un(e) étudiant(e) avec le même nom d'utilisateur existe, ses informations seront mises à jour."
         csv_file:            "Fichier CSV"
+        csv_encoding:        "Fichier utilise le codage Unicode"
       download:
         download_student_list: "Télécharger la liste des étudiants"
         download_csv_format:   "Télécharger la liste des étudiants au format CSV"
