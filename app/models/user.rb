@@ -144,7 +144,7 @@ class User < ActiveRecord::Base
     # read each line of the file and update classlist
     User.transaction do
       processed_users = []
-      FasterCSV.parse(user_list, :skip_blanks => true, :row_sep => :auto) do |row|
+      FasterCSV.parse(user_list.read, :skip_blanks => true, :row_sep => :auto) do |row|
         # don't know how to fetch line so we concat given array
         next if FasterCSV.generate_line(row).strip.empty?
         if processed_users.include?(row[0])
