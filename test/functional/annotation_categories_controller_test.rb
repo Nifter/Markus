@@ -381,7 +381,8 @@ class AnnotationCategoriesControllerTest < AuthenticatedControllerTest
         post_as @admin,
                 :csv_upload,
                 :assignment_id => @assignment.id,
-                :annotation_category_list_csv => 'name, text'
+                #:annotation_category_list_csv => 'name, text'
+                :annotation_category_list_csv => StringIO.new("name, text") 
       end
       should respond_with :redirect
       should set_the_flash.to((I18n.t('annotations.upload.success', :annotation_category_number => 1)))
