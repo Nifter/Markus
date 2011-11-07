@@ -45,8 +45,8 @@ class StudentTest < ActiveSupport::TestCase
     context "with no duplicates and no sections" do
 
       setup do
-        csv_file_data = "newuser1,USER1,USER1
-newuser2,USER2,USER2"
+        csv_file_data = StringIO.new("newuser1,USER1,USER1
+newuser2,USER2,USER2")
 
         @num_users = Student.all.size
 
@@ -80,8 +80,8 @@ newuser2,USER2,USER2"
 
         assert new_user.save, "Could not create a new student"
 
-        csv_file_data = "newuser1,USER1,USER1
-exist_student,USER2,USER2"
+        csv_file_data = StringIO.new("newuser1,USER1,USER1
+exist_student,USER2,USER2")
 
         User.upload_user_list(Student, csv_file_data)
 
@@ -97,8 +97,8 @@ exist_student,USER2,USER2"
     context "with no duplicates and sections" do
 
       setup do
-        csv_file_data = "newuser1,USER1,USER1,SECTION1
-newuser2,USER2,USER2,SECTION2"
+        csv_file_data = StringIO.new("newuser1,USER1,USER1,SECTION1
+newuser2,USER2,USER2,SECTION2")
 
         @num_users = Student.all.size
 
@@ -126,8 +126,8 @@ newuser2,USER2,USER2,SECTION2"
     context "with no duplicates and only one section" do
 
       setup do
-        csv_file_data = "newuser1,USER1,USER1,SECTION1
-newuser2,USER2,USER2"
+        csv_file_data = StringIO.new("newuser1,USER1,USER1,SECTION1
+newuser2,USER2,USER2")
 
         @num_users = Student.all.size
 
@@ -166,8 +166,8 @@ newuser2,USER2,USER2"
 
         assert new_user.save, "Could not create a new student"
 
-        csv_file_data = "newuser1,USER1,USER1,SECTION1
-exist_student,USER2,USER2,SECTION2"
+        csv_file_data = StringIO.new("newuser1,USER1,USER1,SECTION1
+exist_student,USER2,USER2,SECTION2")
 
         User.upload_user_list(Student, csv_file_data)
 
@@ -184,8 +184,7 @@ exist_student,USER2,USER2,SECTION2"
     context "with an invalid file" do
 
       setup do
-        @csv_file_data = "newuser1USER1USER1,
-newuser2,USER2,USER2"
+        @csv_file_data = StringIO.new("newuser1USER1USER1,newuser2,USER2,USER2")
 
         @num_users = Student.all.size
         @result = User.upload_user_list(Student, @csv_file_data)
