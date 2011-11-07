@@ -184,7 +184,8 @@ exist_student,USER2,USER2,SECTION2")
     context "with an invalid file" do
 
       setup do
-        @csv_file_data = StringIO.new("newuser1USER1USER1,newuser2,USER2,USER2")
+        @csv_file_data = StringIO.new("newuser1USER1USER1,
+newuser2,USER2,USER2")
 
         @num_users = Student.all.size
         @result = User.upload_user_list(Student, @csv_file_data)
