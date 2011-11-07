@@ -48,8 +48,8 @@ Markus::Application.routes.draw do
 
       collection do
         get 'update_positions'
-        get 'csv_upload'
-        get 'yml_upload'
+        post 'csv_upload'
+        post 'yml_upload'
         get 'download_csv'
         get 'download_yml'
       end
@@ -57,7 +57,7 @@ Markus::Application.routes.draw do
 
     resources :flexible_criteria do
       collection do
-        get 'upload'
+        post 'upload'
         get 'update_positions'
         get 'move_criterion'
         get 'download'
@@ -69,7 +69,7 @@ Markus::Application.routes.draw do
         get 'manage'
         post 'update_positions'
         get 'update_positions'
-        get 'upload'
+        post 'upload'
         get 'download'
         get 'move_criterion'
       end
@@ -82,7 +82,7 @@ Markus::Application.routes.draw do
         get 'add_group'
         get 'use_another_assignment_groups'
         get 'manage'
-        get 'csv_upload'
+        post 'csv_upload'
         get 'add_csv_group'
         get 'download_grouplist'
         get 'create_groups_when_students_work_alone'
@@ -158,7 +158,7 @@ Markus::Application.routes.draw do
     resources :graders do
       collection do
         get 'add_grader_to_grouping'
-        get 'csv_upload_grader_groups_mapping'
+        post 'csv_upload_grader_groups_mapping'
         post 'csv_upload_grader_criteria_mapping'
         get 'download_dialog'
         get 'download_grouplist'
@@ -185,10 +185,10 @@ Markus::Application.routes.draw do
       collection do
         get 'add_annotation_category'
         get 'add_annotation_text'
-        get 'csv_upload'
+        post 'csv_upload'
         get 'delete_annotation_category'
         get 'download'
-        get 'yml_upload'
+        post 'yml_upload'
         post 'delete_annotation_text'
         post 'update_annotation_category'
         post 'update_annotation'
@@ -205,7 +205,7 @@ Markus::Application.routes.draw do
       get 'grades'
       get 'g_table_paginate'
       get 'csv_download'
-      get 'csv_upload'
+      post 'csv_upload'
       post 'update_grade'
       post 'student_interface'
       post 'update_grade_entry_students'
@@ -242,14 +242,14 @@ Markus::Application.routes.draw do
       post 'populate'
       get 'manage'
       get 'download_student_list'
-      get 'upload_student_list'
+      post 'upload_student_list'
     end
   end
 
   resources :tas  do
     collection do
       post 'populate'
-      get 'upload_ta_list'
+      post 'upload_ta_list'
       get 'download_ta_list'
     end
   end
