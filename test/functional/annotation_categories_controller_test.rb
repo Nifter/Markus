@@ -394,6 +394,9 @@ class AnnotationCategoriesControllerTest < AuthenticatedControllerTest
       should respond_with :redirect
       should set_the_flash.to((I18n.t('annotations.upload.success', :annotation_category_number => 1)))
       should assign_to :assignment
+      should "route properly" do
+        assert_recognizes({:controller => "annotation_categories", :assignment_id => "1", :action => "csv_upload" }, {:path => "assignments/1/annotation_categories/csv_upload",  :method => :post})
+      end
     end
 
     context "Annotation Categories" do
