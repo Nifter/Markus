@@ -71,6 +71,17 @@ class TasControllerTest < AuthenticatedControllerTest
         assert_response :success
       end
 
+      should "be able to upload a TA CSV file" do
+        post_as @admin,
+                :upload_ta_list,
+                :userlist => fixture_file_upload('../classlist-csvs/new_students.csv')
+        assert_response :redirect
+        assert_redirected_to(:controller => "tas", :action => 'index')
+        c8mahler = Ta.find_by_user_name('c8mahlernew')
+        assert_not_nil c8mahler
+        assert_generates "/en/tas/upload_ta_list", :controller => "tas", :action => "upload_ta_list"
+        assert_recognizes({:controller => "tas", :action => "upload_ta_list" }, {:path => "tas/upload_ta_list", :method => :post})
+      end
     end # -- With a TA
   end # -- An admin
 
