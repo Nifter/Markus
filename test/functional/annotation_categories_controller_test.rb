@@ -395,7 +395,8 @@ class AnnotationCategoriesControllerTest < AuthenticatedControllerTest
       should set_the_flash.to((I18n.t('annotations.upload.success', :annotation_category_number => 1)))
       should assign_to :assignment
       should "route properly" do
-        assert_recognizes({:controller => "annotation_categories", :assignment_id => "1", :action => "csv_upload" }, {:path => "assignments/1/annotation_categories/csv_upload",  :method => :post})
+        assert_recognizes({:controller => "annotation_categories", :assignment_id => "1", :action => "csv_upload" },
+          {:path => "assignments/1/annotation_categories/csv_upload",  :method => :post})
       end
     end
 
@@ -420,6 +421,10 @@ class AnnotationCategoriesControllerTest < AuthenticatedControllerTest
           @assignment.reload
           new_categories_list = @assignment.annotation_categories
           assert_equal(@old_annotation_categories.length + 1, (new_categories_list.length))
+        end
+        should "route properly" do
+          assert_recognizes({:controller => "annotation_categories", :assignment_id => "1", :action => "yml_upload" },
+            {:path => "assignments/1/annotation_categories/yml_upload",  :method => :post})
         end
       end
 

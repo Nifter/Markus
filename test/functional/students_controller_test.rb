@@ -149,7 +149,6 @@ class StudentsControllerTest < AuthenticatedControllerTest
         assert_generates "/en/students/upload_student_list", :controller => "students", :action => "upload_student_list"
         assert_recognizes({:controller => "students", :action => "upload_student_list" }, {:path => "students/upload_student_list", :method => :post})
       end
-
     end  # -- with a student
   end  # -- An admin
 end
