@@ -479,7 +479,8 @@ Correctness,2.0,Horrible,Poor,Satisfactory,Good,Excellent,,,,,\n"
                                                    "criterion 6: " + I18n.t('criteria.error.incomplete_row')])
         should respond_with :redirect
         should "route properly" do
-          assert_recognizes({:controller => "rubrics", :assignment_id => "1", :action => "csv_upload" }, {:path => "assignments/1/rubrics/csv_upload", :method => :post})
+          assert_recognizes({:controller => "rubrics", :assignment_id => "1", :action => "csv_upload" },
+            {:path => "assignments/1/rubrics/csv_upload", :method => :post})
         end
       end
 
@@ -571,7 +572,8 @@ Correctness,2.0,Horrible,Poor,Satisfactory,Good,Excellent,,,,,\n"
           assert_equal(@assignment.rubric_criteria[0].level_4_description, "I expected more")
         end
         should "route properly" do
-          assert_recognizes({:controller => "rubrics", :assignment_id => "1", :action => "yml_upload" }, {:path => "assignments/1/rubrics/yml_upload", :method => :post})
+          assert_recognizes({:controller => "rubrics", :assignment_id => "1", :action => "yml_upload" },
+            {:path => "assignments/1/rubrics/yml_upload", :method => :post})
         end
       end
 
