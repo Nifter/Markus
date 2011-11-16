@@ -20,7 +20,7 @@ class TATest < ActiveSupport::TestCase
   should "be able to upload a csv vile" do
     csv_file_data = StringIO.new("newuser1,USER1,USER1
 newuser2,USER2,USER2")
-    Ta.upload_user_list(Ta, csv_file_data)
+    Ta.upload_user_list(Ta, csv_file_data, nil)
 
     assert_equal 2,
                  Ta.all.size,
@@ -47,7 +47,7 @@ newuser2,USER2,USER2")
     csv_file_data = StringIO.new("newuser1,USER1,USER1
 exist_user,USER2,USER2")
 
-    User.upload_user_list(Ta, csv_file_data)
+    User.upload_user_list(Ta, csv_file_data, nil)
 
     user = Ta.find_by_user_name("exist_user")
     assert_equal "USER2", user.last_name, "Last name was not properly overwritten by CSV file"
