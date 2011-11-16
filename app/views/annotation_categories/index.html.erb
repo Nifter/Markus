@@ -116,7 +116,7 @@
           <p><%= file_field_tag :annotation_category_list_csv, :size => 0 %>
           </p>
           <p>
-	      Encoding:
+	      <%=h I18n.t("encoding") %>
 	      <%= select_tag(:encoding, options_for_select([['Unicode', 'Unicode'], ['ISO-8859-1', 'ISO-8859-1']])) %>
 	      <br />
 	      <br />
@@ -129,7 +129,7 @@
           <p><%= file_field_tag :annotation_category_list_yml, :size => 0 %>
           </p>
           <p>
-	      Encoding:
+	      <%=h I18n.t("encoding") %>
 	      <%= select_tag(:encoding, options_for_select([['Unicode', 'UTF-8'], ['ISO-8859-1', 'ISO-8859-1']])) %>
 	      <br />
 	      <br />
