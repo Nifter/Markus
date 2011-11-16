@@ -1,4 +1,5 @@
 require 'fastercsv'
+require 'iconv'
 
 # GradeEntryForm can represent a test, lab, exam, etc.
 # A grade entry form has many columns which represent the questions and their total
@@ -232,14 +233,17 @@ class GradeEntryForm < ActiveRecord::Base
   # grades_file is the CSV file to be parsed
   # grade_entry_form is the grade entry form that is being updated
   # invalid_lines will store all problematic lines from the CSV file
-  def self.parse_csv(grades_file, grade_entry_form, invalid_lines)
+  def self.parse_csv(grades_file, grade_entry_form, invalid_lines, encoding)
     num_updates = 0
     num_lines_read = 0
     names = []
     totals = []
-
+    if encoding != nil
+      grades_file = StringIO.new(Iconv.iconv('UTF-8', encoding, grades_file.read).join)
+    end
+    
     # Parse the question names
-    FasterCSV.parse(grades_file.readline) do |row|
+    FasterCSV.parse(grades_file.read) do |row|
       if !FasterCSV.generate_line(row).strip.empty?
         names = row
         num_lines_read += 1
@@ -247,7 +251,7 @@ class GradeEntryForm < ActiveRecord::Base
     end
 
     # Parse the question totals
-    FasterCSV.parse(grades_file.readline) do |row|
+    FasterCSV.parse(grades_file.read) do |row|
       if !FasterCSV.generate_line(row).strip.empty?
         totals = row
         num_lines_read += 1

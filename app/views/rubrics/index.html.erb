@@ -122,6 +122,12 @@
     <p><%= f.file_field :rubric %></p>
     <%= t('rubric_criteria.upload.format_csv_html') %>
 	<%= t('csv_special_characters_html') %>
+    <br />
+    <br />
+	Encoding:
+    <%= select_tag(:encoding, options_for_select([['Unicode', 'Unicode'], ['ISO-8859-1', 'ISO-8859-1']])) %>
+    <br />
+    <br />
     <p>
       <%= f.submit t(:upload), :disable_with => t(:uploading_please_wait) %>
       <input type="reset" value="<%= t(:cancel) %>" onclick="modalUpload.close();">
@@ -135,6 +141,12 @@
                :html => {:multipart => true, :size => 1 } do |f| %>
     <p><%= f.file_field :rubric %></p>
     <%= t('rubric_criteria.upload.format_yml_html') %>
+    <br />
+    <br />
+    Encoding:
+    <%= select_tag(:encoding, options_for_select([['Unicode', 'UTF-8'], ['ISO-8859-1', 'ISO-8859-1']])) %>
+    <br />
+    <br />
     <p>
       <%= f.submit t(:upload), :disable_with => t(:uploading_please_wait) %>
       <input type="reset" value="<%= t(:cancel) %>" onclick="modalUpload.close();">
