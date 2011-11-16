@@ -185,6 +185,10 @@
   <p><%= f.file_field :grades_file %></p>
   <%= t('grade_entry_forms.csv.upload_format_html') %>
   <p>
+  Encoding:
+  <%= select_tag(:encoding, options_for_select([['Unicode', 'UTF-8'], ['ISO-8859-1', 'ISO-8859-1']])) %>
+  <br />
+  <br />
     <%= f.submit t(:upload), :disable_with => t(:uploading_please_wait) %>
     <input type="reset" value="<%= t(:cancel) %>" onclick="modalUpload.close();">
   </p>

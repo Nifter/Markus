@@ -1,4 +1,5 @@
 require 'fastercsv'
+require 'iconv'
 
 class AnnotationCategoriesController < ApplicationController
   include AnnotationCategoriesHelper
@@ -98,6 +99,7 @@ class AnnotationCategoriesController < ApplicationController
 
   def csv_upload
     @assignment = Assignment.find(params[:assignment_id])
+    encoding = params[:encoding]
     if !request.post?
       redirect_to :action => 'index', :id => @assignment.id
       return
@@ -106,6 +108,9 @@ class AnnotationCategoriesController < ApplicationController
     annotation_category_number = 0
     annotation_line = 0
     if !annotation_category_list.nil?
+      if encoding != nil
+        annotation_category_list = StringIO.new(Iconv.iconv('UTF-8', encoding, annotation_category_list.read).join)
+      end
       FasterCSV.parse(annotation_category_list.read) do |row|
         next if FasterCSV.generate_line(row).strip.empty?
         annotation_line += 1
@@ -130,6 +135,7 @@ class AnnotationCategoriesController < ApplicationController
 
   def yml_upload
     @assignment = Assignment.find(params[:assignment_id])
+    encoding = params[:encoding]
     if !request.post?
       redirect_to :action => 'index', :assignment_id => @assignment.id
       return
@@ -139,6 +145,9 @@ class AnnotationCategoriesController < ApplicationController
     annotation_line = 0
     if !file.nil? && !file.blank?
       begin
+        if encoding != nil
+          file = StringIO.new(Iconv.iconv('UTF-8', encoding, file.read).join)
+        end
         annotations = YAML::load(file)
       rescue ArgumentError => e
         flash[:annotation_upload_invalid_lines] =
