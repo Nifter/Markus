@@ -150,6 +150,39 @@ class StudentsControllerTest < AuthenticatedControllerTest
         assert_recognizes({:controller => "students", :action => "upload_student_list" },
           {:path => "students/upload_student_list", :method => :post})
       end
+
+      should "have valid values in database after an upload of a UTF-8 encoded file parsed as UTF-8" do
+        post_as @admin,
+                :upload_student_list,
+                :userlist => fixture_file_upload('../files/test-students-utf8.csv'),
+                :encoding => "UTF-8"
+        assert_response :redirect
+        assert_redirected_to(:controller => "students", :action => 'index')
+        test_student = Student.find_by_user_name('c2ÈrÉØrr')
+        assert_not_nil test_student # student should exist
+      end
+
+      should "have valid values in database after an upload of a ISO-8859-1 encoded file parsed as ISO-8859-1" do
+        post_as @admin,
+                :upload_student_list,
+                :userlist => fixture_file_upload('../files/test-students-iso-8859-1.csv'),
+                :encoding => "ISO-8859-1"
+        assert_response :redirect
+        assert_redirected_to(:controller => "students", :action => 'index')
+        test_student = Student.find_by_user_name('c2ÈrÉØrr')
+        assert_not_nil test_student # student should exist
+      end
+
+      should "have invalid values in database after an upload of a UTF-8 encoded file parsed as ISO-8859-1" do
+        post_as @admin,
+                :upload_student_list,
+                :userlist => fixture_file_upload('../files/test-students-utf8.csv'),
+                :encoding => "ISO-8859-1"
+        assert_response :redirect
+        assert_redirected_to(:controller => "students", :action => 'index')
+        test_student = Student.find_by_user_name('c2ÈrÉØrr')
+        assert_nil test_student # student should not be found, despite existing in the CSV file
+      end
     end  # -- with a student
   end  # -- An admin
 end
