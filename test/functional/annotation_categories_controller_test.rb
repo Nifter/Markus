@@ -420,7 +420,7 @@ class AnnotationCategoriesControllerTest < AuthenticatedControllerTest
         test_annotation = @assignment.annotation_categories.find_by_annotation_category_name("AnnotationÈrÉØrr")
         assert_not_nil test_annotation # annotation should exist
       end
-      
+
       should "have valid values in database after an upload of a UTF-8 encoded file parsed as ISO-8859-1" do
         post_as @admin,
                 :csv_upload,
