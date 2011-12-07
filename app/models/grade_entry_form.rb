@@ -238,12 +238,13 @@ class GradeEntryForm < ActiveRecord::Base
     num_lines_read = 0
     names = []
     totals = []
+    grades_file = StringIO.new(grades_file.read)
     if encoding != nil
       grades_file = StringIO.new(Iconv.iconv('UTF-8', encoding, grades_file.read).join)
     end
 
     # Parse the question names
-    FasterCSV.parse(grades_file.read) do |row|
+    FasterCSV.parse(grades_file.readline) do |row|
       if !FasterCSV.generate_line(row).strip.empty?
         names = row
         num_lines_read += 1
@@ -251,7 +252,7 @@ class GradeEntryForm < ActiveRecord::Base
     end
 
     # Parse the question totals
-    FasterCSV.parse(grades_file.read) do |row|
+    FasterCSV.parse(grades_file.readline) do |row|
       if !FasterCSV.generate_line(row).strip.empty?
         totals = row
         num_lines_read += 1
